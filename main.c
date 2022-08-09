@@ -42,32 +42,6 @@ uint8_t  EEMEM NonVolatileChar;
 uint16_t EEMEM NonVolatileInt;
 uint8_t  EEMEM NonVolatileString[10];
 
-int main(void) {
-    uint8_t SRAMchar;
-    SRAMchar = eeprom_read_byte(&NonVolatileChar);
-}
-----------------------
-#include <avr/eeprom.h>
-
-uint8_t  EEMEM NonVolatileChar;
-uint16_t EEMEM NonVolatileInt;
-uint8_t  EEMEM NonVolatileString[10];
-
-int main(void)
-{
-    uint8_t  SRAMchar;
-    uint16_t SRAMint;
-
-    SRAMchar = eeprom_read_byte(&NonVolatileChar);
-    SRAMint  = eeprom_read_word(&NonVolatileInt);
-}
--------------------------------------
-#include <avr/eeprom.h>
-
-uint8_t  EEMEM NonVolatileChar;
-uint16_t EEMEM NonVolatileInt;
-uint8_t  EEMEM NonVolatileString[10];
-
 int main(void)
 {
     uint8_t  SRAMchar;
@@ -80,7 +54,6 @@ int main(void)
 }
 -----------------
 uint8_t EEMEM SomeVariable = 12;  // you must write eeprom!!! epp file while flashing
-
 
  */
 

@@ -2,3 +2,8 @@
 /objects.mk
 /sources.mk
 /subdir.mk
+/MyOS.eep
+/MyOS.elf
+/MyOS.hex
+/MyOS.lss
+/MyOS.map
