@@ -30,7 +30,7 @@ ISR(TIMER0_OVF_vect)
 
     if (process[i].counter) { process[i].counter--; }
     else {
-	  if (process[i].handler) process[i].handler();
+	  if (process[i].handler) process[i].handler();  //execute handler
 	  process[i].counter = process[i].delay;
     }
     TCNT0 = 0xF5; //odnow wartosc, bo w trybie normal tego nie robi.
