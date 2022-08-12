@@ -42,14 +42,14 @@ uint8_t uart_receive()
 
 
 //Function to transmit a string in Flash
-void uart_send_string_from_FLASH(char* string)
+void uart_send_string_from_FLASH(const char* string)
 {
   while (pgm_read_byte(&(*string)))
    uart_send(pgm_read_byte(&(*string++)));
 }
 
 //Function to transmit a string in RAM
-void uart_send_string(unsigned char* string)
+void uart_send_string(char* string)
 {
   while (*string)
 	  uart_send(*string++);
@@ -68,7 +68,7 @@ int uart_printf (const char *fmt, ...)
    va_end (args);
 
    // Print the string
-   uart_send_string((unsigned char*)printbuffer);
+   uart_send_string(printbuffer);
    return 0;
 }
 
