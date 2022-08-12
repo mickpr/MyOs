@@ -30,17 +30,6 @@ endif
 
 -include ../makefile.defs
 
-OPTIONAL_TOOL_DEPS := \
-$(wildcard ../makefile.defs) \
-$(wildcard ../makefile.init) \
-$(wildcard ../makefile.targets) \
-
-
-BUILD_ARTIFACT_NAME := MyOs
-BUILD_ARTIFACT_EXTENSION := elf
-BUILD_ARTIFACT_PREFIX :=
-BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
-
 # Add inputs and outputs from these tool invocations to the build variables 
 LSS += \
 MyOs.lss \
@@ -56,38 +45,35 @@ sizedummy \
 
 
 # All Target
-all: main-build
-
-# Main-build Target
-main-build: MyOs.elf secondary-outputs
+all: MyOs.elf secondary-outputs
 
 # Tool invocations
-MyOs.elf: $(OBJS) $(USER_OBJS) makefile objects.mk $(OPTIONAL_TOOL_DEPS)
+MyOs.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR C Linker'
 	avr-gcc -Wl,-Map,MyOs.map -mmcu=atmega32 -o "MyOs.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-MyOs.lss: MyOs.elf makefile objects.mk $(OPTIONAL_TOOL_DEPS)
+MyOs.lss: MyOs.elf
 	@echo 'Invoking: AVR Create Extended Listing'
 	-avr-objdump -h -S MyOs.elf  >"MyOs.lss"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-MyOs.hex: MyOs.elf makefile objects.mk $(OPTIONAL_TOOL_DEPS)
+MyOs.hex: MyOs.elf
 	@echo 'Create Flash image (ihex format)'
 	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex MyOs.elf  "MyOs.hex"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-MyOs.eep: MyOs.elf makefile objects.mk $(OPTIONAL_TOOL_DEPS)
+MyOs.eep: MyOs.elf
 	@echo 'Create eeprom image (ihex format)'
 	-avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex MyOs.elf  "MyOs.eep"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-sizedummy: MyOs.elf makefile objects.mk $(OPTIONAL_TOOL_DEPS)
+sizedummy: MyOs.elf
 	@echo 'Invoking: Print Size'
 	-avr-size --format=avr --mcu=atmega32 MyOs.elf
 	@echo 'Finished building: $@'
@@ -100,6 +86,7 @@ clean:
 
 secondary-outputs: $(LSS) $(FLASH_IMAGE) $(EEPROM_IMAGE) $(SIZEDUMMY)
 
-.PHONY: all clean dependents main-build
+.PHONY: all clean dependents
+.SECONDARY:
 
 -include ../makefile.targets
