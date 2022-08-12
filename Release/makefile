@@ -10,6 +10,7 @@ RM := rm -rf
 -include sources.mk
 -include UART/subdir.mk
 -include SYSCLK/subdir.mk
+-include SPI/subdir.mk
 -include subdir.mk
 -include objects.mk
 

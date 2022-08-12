@@ -8,6 +8,7 @@
 #include <util/twi.h>
 #include "UART/uart.h"
 #include "SYSCLK/sysclk.h"
+#include "SPI/spi.h"
 //#include "i2c.h"
 //#include "spi.h"
 #include <inttypes.h>
@@ -87,10 +88,13 @@ int main()
 	TIMSK = 0x00;
 	//delay_ms(50);
 
-	sei();                                     //enable global interrupts
+
 	uart_init();
+	spi_init();
+	SPI_HIGH_SPEED;
+	//SPI_SD;
 
-
+	sei();   //enable global interrupts
 	init_sysclk(); // no. of TASKS in sysclk.h
 
 	process_add(0,test1,1000);
