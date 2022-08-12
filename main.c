@@ -60,11 +60,11 @@ uint8_t EEMEM SomeVariable = 12;  // you must write eeprom!!! epp file while fla
 
 void test1()
 {
-	uart_send_string("a");
+	uart_send_string_from_FLASH(PSTR("a"));
 }
 void test2()
 {
-	uart_send_string("b");
+	uart_send_string_from_FLASH(PSTR("b"));
 }
 
 
@@ -104,7 +104,7 @@ int main()
 
     while(1){
     	wdt_reset();
-   		uart_send_string(".");
+    	uart_send_string_from_FLASH(PSTR("."));
     	_delay_ms(100);
     }
     return (0);
