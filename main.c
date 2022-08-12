@@ -13,9 +13,6 @@
 #include <inttypes.h>
 #include "avr_compat.h"
 
-
-//!!!
-
 // definiowanie statycznej tablicy string we flash
 #define P(name)   static const prog_uchar name[] PROGMEM  // declare a static string
 
